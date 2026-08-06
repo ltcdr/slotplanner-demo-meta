@@ -1,0 +1,16 @@
+release: R_000.005
+
+services:
+  slotplanner-demo: R_000.005
+  slotplanner-demo-functions: R_000.005
+
+deployment-order:
+  - slotplanner-demo-functions
+  - slotplanner-demo
+
+rollback:
+  coordinated: true
+
+audit:
+  created_by: ltcdr
+  date: 2026-08-07
