@@ -2,6 +2,8 @@
 
 This repository serves as the meta layer for coordinating releases, manifests, and version alignment across the Slotplanner-Demo-System. It provides a central place to manage release definitions, audit trails, deployment order, and references to all related service repositories.
 
+---
+
 ## Purpose
 
 The goal of this meta repository is to ensure reproducible, traceable, and well‑structured releases across multiple components of the Slotplanner demo environment. It acts as the single source of truth for:
@@ -11,6 +13,25 @@ The goal of this meta repository is to ensure reproducible, traceable, and well�
 - Deployment sequencing
 - Rollback strategy definitions
 - Audit and compliance documentation
+
+---
+
+## System Components & Related Repositories
+Slotplanner is structured as a multi‑repository system to reflect real‑world release and delivery workflows.
+This meta repository (slotplanner-demo-meta) coordinates all components and defines how they are released together:
+
+[slotplanner-demo](https://github.com/ltcdr/slotplanner-demo)  
+FastAPI backend and demo frontend providing the activity and booking workflow.
+Versioned independently and included as a Git submodule.
+
+[slotplanner-demo-functions](https://github.com/ltcdr/slotplanner-demo-functions)  
+Azure Functions automation layer generating weekly demo activities and performing cleanup tasks.
+Also versioned independently and included as a Git submodule.
+
+These repositories form a distributed system with independent deployment units.
+The meta repository provides unified versioning, deployment sequencing, and release documentation to ensure coordinated, reproducible releases across all services.
+
+---
 
 ## Repository Structure
 
@@ -30,6 +51,7 @@ slotplanner-demo-meta/
     └── audit-trail.md
 ```
 
+---
 
 ## Release Manifests
 
@@ -59,6 +81,21 @@ audit:
   date: 2026-08-06
 ```
 
+---
+
+## Environment Strategy
+
+The Slotplanner demo system uses a staged release approach:
+
+- **Development** – feature branches and early integration
+- **Staging** – validation of coordinated service versions
+- **Production** – finalized demo releases defined by manifest files
+
+Environment configuration (backend URLs, Function App settings, identity
+configuration) is managed per environment and aligned through the meta
+repository to ensure consistent deployments across all services.
+
+---
 
 ## Submodules
 The services/ directory contains Git submodules pointing to the individual service repositories.
@@ -70,22 +107,23 @@ git clone --recurse-submodules <repo-url>
 
 This ensures all service versions referenced in the manifest are checked out correctly.
 
+---
 
-## Service Repositories
+## CI/CD Integration
 
-This meta repository coordinates two service components of the Slotplanner demo system:
+Releases defined in this meta repository are executed through GitHub Actions
+pipelines using OIDC authentication. Each service repository contains its own
+deployment workflow, while the meta repository provides:
 
-### slotplanner-demo
-GitHub: https://github.com/ltcdr/slotplanner-demo  
-The main web application providing the demo frontend and backend logic.
+- Version pinning for each coordinated release
+- Deployment order definitions
+- Release notes and audit metadata
+- A single source of truth for cross‑service CI/CD execution
 
-### slotplanner-demo-functions
-GitHub: https://github.com/ltcdr/slotplanner-demo-functions  
-Azure Functions backend providing API endpoints, background processing, and integration logic.
+This structure ensures reproducible and traceable deployments across all
+components of the Slotplanner demo system.
 
-Both repositories are included as Git submodules under `services/` and are versioned independently.  
-Release manifests in this meta repository define which versions of each service belong to a coordinated system release.
-
+---
 
 ## Documentation
 Additional documentation is located in the docs/ directory:
@@ -95,6 +133,24 @@ release-process.md — describes the release workflow
 rollback-strategy.md — defines rollback procedures
 
 audit-trail.md — outlines compliance and traceability requirements
+
+---
+
+## Release Lifecycle Overview
+
+A typical release follows these steps:
+
+1. Development work on feature branches  
+2. Creation of a release branch (dev_r000.XXX_<task>)  
+3. Version updates in service repositories  
+4. Manifest creation in the meta repository  
+5. Staging deployment for validation  
+6. Production deployment following the defined deployment order  
+7. Audit trail update and release documentation
+
+This lifecycle ensures predictable, controlled, and well‑documented releases.
+
+---
 
 ## Branching Strategy
 Development for each release is performed on dedicated branches following the pattern:
@@ -108,3 +164,5 @@ Example:
 ```
 dev_r000.005_create_readme
 ```
+
+---
