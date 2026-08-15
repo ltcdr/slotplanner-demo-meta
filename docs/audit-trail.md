@@ -61,3 +61,17 @@ Audit entries are maintained in this document and referenced by the correspondin
 - All audit updates must be performed through Pull Requests.  
 
 ---
+
+release: R_000.005
+author: ltcdr
+date: 2026-08-15
+manifest: R_000.005.yaml
+
+pull_requests:
+<URL to meta repo PR>
+<URL to slotplanner-demo PRs>
+<URL to slotplanner-demo-functions PRs>
+
+deployment: successful
+rollback: none
+notes: Stable end-to-end demo release including protected admin endpoints via Managed Identity, validated bearer token flow for Azure Functions, stable dependency sets, updated documentation, and reliable weekly activity generation and daily cleanup jobs. CI/CD via OIDC is fully operational. Tests and a Functions frontend are planned for future releases.
