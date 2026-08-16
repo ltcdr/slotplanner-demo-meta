@@ -2,5 +2,11 @@
 	path = services/slotplanner_demo
 	url = https://github.com/ltcdr/slotplanner-demo
 [submodule "services/slotplanner-demo-functions"]
-	path = services/slotplanner-demo_functions
+	path = services/slotplanner_demo_functions
 	url = https://github.com/ltcdr/slotplanner-demo-functions
+[submodule "services/slotplanner_demo"]
+	path = services/slotplanner_demo
+	url = https://github.com/ltcdr/slotplanner-demo.git
+[submodule "services/slotplanner_demo_functions"]
+	path = services/slotplanner_demo_functions
+	url = https://github.com/ltcdr/slotplanner-demo-functions.git
