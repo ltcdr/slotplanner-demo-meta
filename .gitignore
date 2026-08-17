@@ -14,3 +14,8 @@ instance/
 .idea/
 *.swp
 *.swo
+
+# Test artifacts
+ci_artifacts/
+tests/artifacts/
+coverage/
